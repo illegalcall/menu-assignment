@@ -7,6 +7,6 @@
     }
   ],
   "env": {
-    "DATABASE_URL": "@DATABASE_URL"
+    "DATABASE_URL": "postgresql://menu_assignment_user:cbtLvADGfqxkzXlElmOlT9DRKSsIDo6Z@dpg-ctqjq4ggph6c73ckqp10-a.oregon-postgres.render.com/menu_assignment"
   }
 }
