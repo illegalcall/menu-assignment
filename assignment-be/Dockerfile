@@ -1,7 +1,7 @@
 FROM node:18-alpine
 
-# Install OpenSSL 1.1.x
-RUN apt-get update && apt-get install -y libssl1.1
+# # Install OpenSSL 1.1.x
+# RUN apt-get update && apt-get install -y libssl1.1
 
 WORKDIR /app
 
