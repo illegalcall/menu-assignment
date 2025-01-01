@@ -175,7 +175,7 @@ const Dashboard: React.FC = () => {
         <div className="relative flex flex-1 flex-col lg:ml-72">
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           <main>
-            <div className="mx-auto max-w-screen-2xl px-4 md:px-4 2xl:px-4">
+            <div className="mx-auto max-w-screen-2xl px-8 md:px-8 2xl:px-10">
               <div className="px-0">
                 <div className="flex py-2 items-center space-x-1 text-gray-600">
                   <Folder className="w-5 h-5" />

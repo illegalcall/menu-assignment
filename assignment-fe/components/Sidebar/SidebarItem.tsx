@@ -35,8 +35,6 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     }
   };
 
-  const levelColor = `bg-gray-${700 - level * 100}`;
-
   useEffect(() => {
     if (isFirstParent) {
       setIsOpen(true);
@@ -44,16 +42,16 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   }, [isFirstParent]);
 
   return (
-    <li style={{backgroundColor:'#4a5568'}}>
+    <li className={`rounded-2xl bg-gray-600 px-1 py-1 `} >
       <div
-        className={`${active === item.title ? "bg-[#9ff442]" : ""} group relative flex items-center gap-2 px-2 py-2 font-medium text-white duration-300 ease-in-out cursor-pointer`}
+        className={`${active === item.title &&item.children && item?.children?.length <= 0 ? "bg-[#9ff442] text-black rounded-lg" : "text-gray-300"} group relative flex items-center gap-2 px-2 py-2 duration-300 ease-in-out cursor-pointer font-semibold`}
         onClick={() => {
           toggleDropdown();
-          setActive(item.title); // Update active state when clicked
+          setActive(item.title); 
         }}
       >
         {item.children && item.children.length <= 0 ? (
-          <button className="flex items-center gap-2 w-full">
+          <button className="flex items-center gap-2 w-full" onClick={() => window.history.pushState(null, "", `/${item.title}`)}>
             <LayoutGrid size={16} />
             <span>{item.title}</span>
           </button>
@@ -63,21 +61,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
             <span>{item.title}</span>
           </div>
         )}
-        {item.children && item.children.length > 0 && isOpen && (
-          <ChevronDown
-            size={16}
-            className={`transform transition-transform duration-300 ${
-              isOpen ? "rotate-180" : ""
-            }`}
-          />
-        )}
+      
       </div>
       {item.children && isOpen && (
-        <ul 
-        // className={`${levelColor}`}
-        //  style={{backgroundColor:levelColor}}        
-
-         >
+        <ul>
           {item.children.map((child) => (
             <SidebarItem
               key={child.id}
