@@ -73,11 +73,15 @@ The easiest way to run the application is to use Docker Compose. Follow these st
    ```bash
    docker-compose up
    ```
-3. The Frontend application will be started and will be accessible at the following URL:
-   ```http://localhost:3000```
-4. The Backend application will be started and will be accessible at the following URL:
-   ```http://localhost:4000```
-
+3. The Frontend application will be started and will be accessible at the following URL: <br />
+   http://localhost:3000 <br />
+   https://menu-assignment.vercel.app
+4. The Backend application will be started and will be accessible at the following URL:<br />
+   http://localhost:4000 <br />
+   https://menu-assignment-1.onrender.com
+5. Swagger api docs can be accessed from the following URL: <br />
+   http://localhost:4000/api <br />
+   https://menu-assignment-1.onrender.com/api
 
 ## JSON API Specification
 
@@ -89,7 +93,6 @@ By following the JSON API specification, the project ensures that the APIs:
 - Structure responses in a resource-oriented manner
 - Include relationships between resources
 - Handle errors consistently
-- Support pagination and sorting
 
 The adherence to the JSON API specification enables easier integration with other systems and clients that also support JSON API. It promotes consistency and simplifies the consumption of APIs.
 
