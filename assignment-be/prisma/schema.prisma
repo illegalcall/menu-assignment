@@ -1,6 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
 datasource db {
@@ -9,16 +9,15 @@ datasource db {
 }
 
 model MenuItem {
-  id         Int      @id @default(autoincrement())
-  title      String   // The name of the menu or item
-  parentId   Int?     // Nullable for root-level menus
-  position   Int      // Position of the item within its level
-  isMenu     Boolean  // True if it has children, false if it's a leaf node
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  title     String // The name of the menu or item
+  parentId  Int? // Nullable for root-level menus
+  position  Int // Position of the item within its level
+  isMenu    Boolean // True if it has children, false if it's a leaf node
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  parent     MenuItem? @relation("ParentChild", fields: [parentId], references: [id])
-  children   MenuItem[] @relation("ParentChild")
+  parent   MenuItem?  @relation("ParentChild", fields: [parentId], references: [id])
+  children MenuItem[] @relation("ParentChild")
 }
-
