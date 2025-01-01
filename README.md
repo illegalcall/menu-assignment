@@ -83,21 +83,6 @@ The easiest way to run the application is to use Docker Compose. Follow these st
    http://localhost:4000/api <br />
    https://menu-assignment-1.onrender.com/api
 
-## JSON API Specification
-
-The APIs implemented in this project adhere to the JSON API specification ([jsonapi.org](http://jsonapi.org/)). The JSON API specification provides guidelines for building consistent and interoperable APIs. 
-
-By following the JSON API specification, the project ensures that the APIs:
-
-- Use a standardized format for request and response payloads
-- Structure responses in a resource-oriented manner
-- Include relationships between resources
-- Handle errors consistently
-
-The adherence to the JSON API specification enables easier integration with other systems and clients that also support JSON API. It promotes consistency and simplifies the consumption of APIs.
-
-For detailed information about the JSON API specification, please refer to the official documentation at [jsonapi.org](http://jsonapi.org/).
-
 
 ## UI Snapshot
 
