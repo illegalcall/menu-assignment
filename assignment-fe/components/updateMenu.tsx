@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { BASE_URL } from "@/consts"
 
 interface UpdateMenuProps {
   itemForEdit: MenuItem;
@@ -35,7 +36,7 @@ const UpdateMenu: React.FC<UpdateMenuProps> = ({ itemForEdit, fetchMenuItems, on
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await axios.put(`http://localhost:4000/menu/${itemForEdit.id}`, {
+      const response = await axios.put(`${BASE_URL}/menu/${itemForEdit.id}`, {
         title: values.title,
       });
       toast({
@@ -54,7 +55,7 @@ const UpdateMenu: React.FC<UpdateMenuProps> = ({ itemForEdit, fetchMenuItems, on
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4000/menu/${itemForEdit.id}`);
+      await axios.delete(`${BASE_URL}/menu/${itemForEdit.id}`);
       toast({
         title: "Menu deleted successfully",
         description: `The menu item "${itemForEdit.title}" has been deleted.`,

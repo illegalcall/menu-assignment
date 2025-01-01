@@ -7,6 +7,7 @@ import UpdateMenu from "@/components/updateMenu"
 import AddSubmenu from "@/components/AddSubmenu"
 import Header from "@/components/Header"
 import Sidebar from "../components/Sidebar"
+import { BASE_URL } from "@/consts"
 export interface MenuItem {
   id: number
   title: string
@@ -30,7 +31,7 @@ const Dashboard: React.FC = () => {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/menu")
+      const response = await axios.get(`${BASE_URL}/menu`)
       setMenuItems(response.data)
     } catch (error) {
       toast({

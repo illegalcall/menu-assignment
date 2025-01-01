@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useToast } from '@/components/ui/use-toast';
 import { MenuItem } from '@/app/page';
+import { BASE_URL } from "@/consts"
 
 export const useMenuOperations = () => {
   const { toast } = useToast();
@@ -20,7 +21,7 @@ export const useMenuOperations = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:4000/menu", newSubmenu);
+      const response = await axios.post(`${BASE_URL}/menu`, newSubmenu);
       fetchMenuItems();
       toast({
         title: "Submenu added successfully",
@@ -39,7 +40,7 @@ export const useMenuOperations = () => {
   const handleUpdateMenu = async (updatedItem: MenuItem, fetchMenuItems: () => void) => {
     setLoading(true);
     try {
-      const response = await axios.put(`http://localhost:4000/menu/${updatedItem.id}`, { title: updatedItem.title });
+      const response = await axios.put(`${BASE_URL}/menu/${updatedItem.id}`, { title: updatedItem.title });
       fetchMenuItems();
       toast({
         title: "Menu updated successfully",
@@ -58,7 +59,7 @@ export const useMenuOperations = () => {
   const handleDeleteMenu = async (itemId: number, fetchMenuItems: () => void) => {
     setLoading(true);
     try {
-      await axios.delete(`http://localhost:4000/menu/${itemId}`);
+      await axios.delete(`${BASE_URL}/menu/${itemId}`);
       fetchMenuItems();
       toast({
         title: "Menu deleted successfully",
