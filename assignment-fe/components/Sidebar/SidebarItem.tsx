@@ -44,9 +44,9 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   }, [isFirstParent]);
 
   return (
-    <li>
+    <li style={{backgroundColor:'#4a5568'}}>
       <div
-        className={`${active === item.title ? "bg-blue-500" : ""} group relative flex items-center gap-2 px-2 py-2 font-medium text-white duration-300 ease-in-out cursor-pointer`}
+        className={`${active === item.title ? "bg-[#9ff442]" : ""} group relative flex items-center gap-2 px-2 py-2 font-medium text-white duration-300 ease-in-out cursor-pointer`}
         onClick={() => {
           toggleDropdown();
           setActive(item.title); // Update active state when clicked
@@ -73,7 +73,11 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         )}
       </div>
       {item.children && isOpen && (
-        <ul className={`${levelColor}`}>
+        <ul 
+        // className={`${levelColor}`}
+        //  style={{backgroundColor:levelColor}}        
+
+         >
           {item.children.map((child) => (
             <SidebarItem
               key={child.id}
