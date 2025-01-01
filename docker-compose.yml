@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  assignment-be:
+    build: ./assignment-be
+    command: sh -c "npx prisma migrate deploy && npx prisma db seed && npm run start"
+    ports:
+      - 4000:4000
+    volumes:
+      - ./assignment-be:/app
+      - /app/node_modules
+    depends_on:
+      - postgres
+
+  assignment-fe:
+    build: ./assignment-fe
+    ports:
+      - 3000:3000
+    volumes:
+      - ./assignment-fe:/app
+      - /app/node_modules
+      - /app/.next
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+volumes:
+  postgres:
+    name: nest-db
