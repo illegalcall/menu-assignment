@@ -13,7 +13,7 @@ async function bootstrap() {
     .setDescription('This is the Assginment API description')
     .setVersion('1.0')
     .build();
-
+    
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
@@ -30,8 +30,15 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   });
 
-  // Initialize app without listening (serverless environment)
-  await app.init();
+  // In a serverless environment (Vercel), we don't use app.listen(). Instead, we initialize the app.
+  if (process.env.VERCEL === '1') {
+    // If running in Vercel, don't use app.listen    
+    await app.init();
+  } else {
+    // If running locally, use app.listen to start the server.
+    await app.listen(4000);
+    console.log('NestJS app is running on http://localhost:4000');
+  }
 }
 
 // Vercel serverless function handler
