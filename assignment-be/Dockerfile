@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 # # Install OpenSSL 1.1.x
 # RUN apt-get update && apt-get install -y libssl1.1
