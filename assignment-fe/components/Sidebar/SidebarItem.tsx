@@ -1,19 +1,33 @@
-import React, { useState } from "react";
-import SidebarDropdown from "./SidebarDropdown";
-import { Folder, ChevronDown, File } from "lucide-react"; // Import Lucide icons
+"use client"; // Mark this as a Client Component
+
+import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation"; // Use `usePathname` for App Router
+import { Folder, ChevronDown, LayoutGrid } from "lucide-react"; // Import Lucide icons
 
 interface Item {
   id: number;
   title: string;
+  path?: string; // Add a path property for routing
   children?: Item[];
 }
 
 interface SidebarItemProps {
   item: Item;
+  level?: number; // Track the nesting level
+  isFirstParent?: boolean; // Indicates if this is the first parent
+  active: string; // Active state passed from parent
+  setActive: (title: string) => void; // Function to update active state
 }
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ item }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const SidebarItem: React.FC<SidebarItemProps> = ({
+  item,
+  level = 0,
+  isFirstParent = false,
+  active,
+  setActive,
+}) => {
+  const [isOpen, setIsOpen] = useState(isFirstParent);
+  const pathname = usePathname(); // Get the current path in App Router
 
   const toggleDropdown = () => {
     if (item.children) {
@@ -21,39 +35,56 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item }) => {
     }
   };
 
-  // Define a single background color for all items
-  const defaultColor = "bg-gray-700"; // Single color for all items
-  const openDropdownColor = "bg-green-600"; // Distinct color for open dropdown
+  const levelColor = `bg-gray-${700 - level * 100}`;
+
+  useEffect(() => {
+    if (isFirstParent) {
+      setIsOpen(true);
+    }
+  }, [isFirstParent]);
 
   return (
     <li>
       <div
-        className={`${defaultColor} ${
-          isOpen ? openDropdownColor : ""
-        } group relative flex items-center gap-2 rounded-sm px-2 py-2 font-medium text-white duration-300 ease-in-out cursor-pointer`}
-        onClick={toggleDropdown}
+        className={`${active === item.title ? "bg-blue-500" : ""} group relative flex items-center gap-2 px-2 py-2 font-medium text-white duration-300 ease-in-out cursor-pointer`}
+        onClick={() => {
+          toggleDropdown();
+          setActive(item.title); // Update active state when clicked
+        }}
       >
-        {/* Icon for the menu item */}
-        {item.children ? (
-          <Folder className="w-4 h-4" /> // Folder icon for items with children
+        {item.children && item.children.length <= 0 ? (
+          <button className="flex items-center gap-2 w-full">
+            <LayoutGrid size={16} />
+            <span>{item.title}</span>
+          </button>
         ) : (
-          <File className="w-4 h-4" /> // File icon for items without children
+          <div className="flex items-center gap-2 w-full">
+            <Folder size={16} />
+            <span>{item.title}</span>
+          </div>
         )}
-        <span className="text-sm">{item.title}</span>
-        {/* Dropdown icon only for items with children */}
-        {item.children && (
+        {item.children && item.children.length > 0 && isOpen && (
           <ChevronDown
-            className={`w-4 h-4 ml-auto transform transition-transform ${
+            size={16}
+            className={`transform transition-transform duration-300 ${
               isOpen ? "rotate-180" : ""
             }`}
           />
         )}
       </div>
-
-      {item?.children && isOpen && (
-        <div className="translate transform overflow-hidden">
-          <SidebarDropdown items={item.children} />
-        </div>
+      {item.children && isOpen && (
+        <ul className={`${levelColor}`}>
+          {item.children.map((child) => (
+            <SidebarItem
+              key={child.id}
+              item={child}
+              level={level + 1}
+              isFirstParent={false}
+              active={active} // Pass active state to children
+              setActive={setActive} // Pass setActive function to children
+            />
+          ))}
+        </ul>
       )}
     </li>
   );
