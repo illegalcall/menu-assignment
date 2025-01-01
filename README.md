@@ -98,4 +98,4 @@ For detailed information about the JSON API specification, please refer to the o
 
 ## UI Snapshot
 
-![UI Snapshot](./submission/app-ui.png)
+![UI Snapshot](./submission/app-ui.png) 
